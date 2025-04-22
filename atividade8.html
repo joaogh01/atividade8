@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funções, Loops e Arrays</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        section { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        input, button { margin: 5px 0; padding: 8px; font-size: 14px; }
+     </style>
+</head>
+<body>
+
+    <h1>JavaScript Interativo</h1>
+
+    <section>
+        <h2>Array e For</h2>
+        <input type="text" id="nomeLista">
+        <button id="btAdicionarNome">Adicionar</button>
+        <button id="btRemoverNome">Remover por nome</button>
+        <button id="btLimparTudo">Limpar a lista</button>
+        <ul id="listaNomes"></ul>
+    </section>
+
+    <script>
+        const nomes = [];
+
+        document.getElementById('btAdicionarNome').onclick = function () {
+            const entrada = document.getElementById('nomeLista');
+            const nome = entrada.value;
+
+            if (nome !== "") {
+                nomes.push(nome);
+                entrada.value = "";
+                atualizarNomes();
+            }
+        };
+
+        document.getElementById('btRemoverNome').onclick = function () {
+            const entrada = document.getElementById('nomeLista');
+            const nome = entrada.value;
+
+            const indice = nomes.findIndex(n => n === nome);
+
+            if (indice !== -1) {
+                nomes.splice(indice, 1);
+                atualizarNomes();
+            } else {
+                alert("Nome não encontrado.");
+            }
+
+            entrada.value = "";
+        };
+
+        document.getElementById('btLimparTudo').onclick = function () {
+            nomes.length = 0;
+            atualizarNomes();
+        };
+
+        function atualizarNomes() {
+            const ul = document.getElementById('listaNomes');
+            ul.innerHTML = "";
+
+            for (let i = 0; i < nomes.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = (i + 1) + ". " + nomes[i];
+                ul.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>
